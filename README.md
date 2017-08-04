@@ -1,2 +1,2 @@
-# crawler
-crawler for some platform page in china
+# learn
+learn how to use HanLP
