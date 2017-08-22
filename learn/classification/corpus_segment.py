@@ -51,13 +51,13 @@ def corpus_segment(corpus_path, seg_path):
 
 
 if __name__ == '__main__':
-    corpus_path = './data/train_corpus'
-    seg_path = './data/train_corpus_seg'
+    corpus_path = '../data/train_corpus/'
+    seg_path = '../data/train_corpus_seg/'
     corpus_segment(corpus_path, seg_path)
 
-    # corpus_path = './data/test_corpus'
-    # seg_path = './data/test_corpus_seg'
-    # corpus_segment(corpus_path, seg_path)
+    corpus_path = '../data/test_corpus/'
+    seg_path = '../data/test_corpus_seg/'
+    corpus_segment(corpus_path, seg_path)
 
 
 
