@@ -3,8 +3,24 @@
 import logging
 import os.path
 import sys
-
+reload(sys)
+sys.setdefaultencoding('utf-8')
 from gensim.corpora import WikiCorpus
+
+
+def wiki_process(raw_data_path, output_path):
+    output = open(output_path, 'w')
+    wiki = WikiCorpus(raw_data_path, lemmatize=False, dictionary={})
+    space = ' '.encode()
+    i = 0
+    for text in wiki.get_texts():
+        output.write(str(space.join(text)) + '\n')
+        i = i + 1
+        if i % 10000 == 0:
+            logger.info('saved ' + str(i) + ' articles')
+
+    output.close()
+    logger.info('Finished saved ' + str(i) + ' articles')
 
 if __name__ == '__main__':
     program = os.path.basename(sys.argv[0])
@@ -13,23 +29,7 @@ if __name__ == '__main__':
     logging.basicConfig(format='%(asctime)s: %(levelname)s: %(message)s')
     logging.root.setLevel(level=logging.INFO)
 
-    logger.info('running %s' % ' '.join(sys.argv))
+    raw_data_path = '../../data/wiki/zhwiki-latest-pages-articles.xml.bz2'
+    output_path = '../../data/wiki/wiki.zh.text'
+    wiki_process(raw_data_path, output_path)
 
-    # check and process input arguments
-    if len(sys.argv) < 3:
-        print globals()['__doc__'] % locals()
-        sys.exit(1)
-    inp, outp = sys.argv[1:3]
-    space = ' '
-    i = 0
-
-    output = open(outp, 'w')
-    wiki = WikiCorpus(inp, lemmatize=False, dictionary={})
-    for text in wiki.get_texts():
-        output.write(space.join(text) + '\n')
-        i = i + 1
-        if i % 10000 == 0:
-            logger.info('saved ' + str(i) + ' articles')
-
-    output.close()
-    logger.info('Finished saved ' + str(i) + ' articles')
